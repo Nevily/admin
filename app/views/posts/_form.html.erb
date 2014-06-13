@@ -1,0 +1,23 @@
+<%= form_for(@post, :html => { :multipart => true }) do |f| %>
+   <div class="field">
+     <%= f.label :title %><br>
+     <%= f.text_field :title %>
+   </div>
+
+   <%= f.fields_for :images do |p| %>
+     <div class="field">
+       <%= p.label :file %><br>
+       <%= p.file_field :file, :multiple => true, name: "images[file][]" %>
+     </div>
+   <% end %>
+
+   <% if params[:controller] == "post" && params[:action] == "edit" %> 
+     <% @post.images.each do |i| %>
+       <%= image_tag i.file, :size => "150x150" %>
+     <% end %>
+   <% end %>
+
+   <div class="actions">
+     <%= f.submit %>
+   </div>
+<% end %>

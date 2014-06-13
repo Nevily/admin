@@ -1,2 +1,9 @@
-%h1 Pages#index
-%p Find me in app/views/pages/index.html.haml
+%h1= current_user.username.capitalize
+
+= link_to 'New Post', new_post_path
+
+- if !@posts.blank?
+  @posts.each do |post|
+  = post.title
+
+  = will_paginate @titles

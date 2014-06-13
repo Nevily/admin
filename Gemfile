@@ -36,10 +36,23 @@ gem 'haml-rails'
 # Use Bootstrap
 gem 'bootstrap-sass', '~> 3.1.1'
 
+# Use Captcha in the sign in page
+gem 'simple_captcha2', require: 'simple_captcha'
+
+# Use pagination in order to show all posts
+gem 'will_paginate', '~> 3.0'
+
+# Use jquery-ui
+gem 'jquery-ui-rails'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
+# File Uploading
+gem 'carrierwave'
+gem 'jquery-fileupload-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

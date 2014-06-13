@@ -4,13 +4,15 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :post
+
   # New attributes' validations
   validates :username,
   :uniqueness => {
     :case_sensitive => false
   }
 
-  validates :gender, inclusion: { in: %w(0 1),
+  validates :gender, inclusion: { in: %w(male female),
     message: "%{value} is not a valid gender" }
 
   # Allows to use the 'login' variable some where else in the code 
