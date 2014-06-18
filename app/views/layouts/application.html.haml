@@ -17,18 +17,20 @@
                 %span.icon-bar
                 %span.icon-bar
               %a.navbar-brand{href: "#"} 
-                = image_tag("logo.png", alt: "Logo", width: 30, height: 30)
+                = image_tag("logo.png", alt: "Logo", width: 25, height: 25)
 
             .collapse.navbar-collapse#bs
               %ul.nav.navbar-nav
-                %li.active
-                  = link_to 'Home', pages_index_path
-                %li
-                  = link_to current_user.username.capitalize, destroy_user_session_path, method: "delete"
-                %li
+                %li{ :class => ('active' if current_page?(pages_index_path)) }
+                  = link_to 'Home', pages_index_path                
+                %li{ :class => ('active' if controller?("images")) }
                   = link_to 'Albums', new_image_path
-                %li
+                %li{ :class => ('active' if controller?("videos")) }
                   = link_to 'Videos', new_video_path
+                %li{ :class => ('active' if controller?("categories")) }
+                  = link_to 'Categories', categories_path
+                %li{ :class => ('active' if controller?("testimonies")) }
+                  = link_to 'Testimonies', testimonies_path
               %form.navbar-form.navbar-left{role: "search"}
                 .form-group
                   %input.form-control{type: "text", placeholder: "search"} 

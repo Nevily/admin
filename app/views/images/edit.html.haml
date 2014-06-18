@@ -1,0 +1,17 @@
+%h2 Edit Image
+
+= form_for @image do |f|
+  - if @image.errors.any?
+    .error_explanation
+      %h2= pluralize(@image.errors.count, "error")
+      prohibited this image from being saved:
+      %ul
+        - @image.errors.full_messages.each do |msg|
+          %li= msg
+  %p
+    =image_tag @image.file_url, size: "250x250" 
+    %br
+    %br
+    = f.file_field :file
+  .actions
+    = f.submit class: 'btn btn-mini btn-primary' 

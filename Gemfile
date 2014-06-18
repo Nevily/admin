@@ -43,7 +43,7 @@ gem 'simple_captcha2', require: 'simple_captcha'
 gem 'will_paginate', '~> 3.0'
 
 # Use jquery-ui
-gem 'jquery-ui-rails'
+# gem 'jquery-ui-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -52,6 +52,7 @@ end
 
 # File Uploading
 gem 'carrierwave'
+gem 'rmagick'
 gem 'jquery-fileupload-rails'
 
 # Use ActiveModel has_secure_password

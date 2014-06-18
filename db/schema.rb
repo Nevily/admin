@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140612134915) do
+ActiveRecord::Schema.define(version: 20140618101119) do
 
   create_table "categories", force: true do |t|
-    t.string   "name"
+    t.string   "title"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20140612134915) do
     t.datetime "updated_at"
     t.integer  "post_id"
     t.string   "file"
+    t.string   "post_token"
   end
 
   add_index "images", ["url"], name: "index_images_on_url", unique: true
@@ -39,6 +40,7 @@ ActiveRecord::Schema.define(version: 20140612134915) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "category_id"
+    t.string   "token"
   end
 
   create_table "simple_captcha_data", force: true do |t|
@@ -53,9 +55,9 @@ ActiveRecord::Schema.define(version: 20140612134915) do
   create_table "testimonies", force: true do |t|
     t.string   "autor"
     t.text     "content"
+    t.integer  "post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "post_id"
   end
 
   create_table "users", force: true do |t|

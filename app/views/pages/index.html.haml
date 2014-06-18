@@ -1,9 +1,10 @@
 %h1= current_user.username.capitalize
 
-= link_to 'New Post', new_post_path
+= link_to 'New Post', new_post_path 
+%br 
+%br
 
 - if !@posts.blank?
-  @posts.each do |post|
-  = post.title
-
-  = will_paginate @titles
+  - @posts.each do |post|
+    = link_to post.title.capitalize, post 
+    %br

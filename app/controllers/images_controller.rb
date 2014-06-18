@@ -1,33 +1,33 @@
 class ImagesController < ApplicationController
-  def index
-    @images = Images.all
-  end
 
-  def new
-    @image = Image.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @image }
-    end
-  end
-
-  def create
-    @image = Image.new(image_params)
+  def destroy
+    @image = set_image
+    @post = Post.find(@image.post_id)
+    @image.destroy
 
     respond_to do |format|
-      if @image.save
-        format.html {
-          render :json => [@image.to_jq_upload].to_json,
-          :content_type => 'text/html',
-          :layout => false
-        }
-        format.json { render json: {files: [@image.to_jq_upload]}, status: :created, location: @image }
+      format.html { redirect_to @post, notice: 'Image has been deleted.' }
+      format.js
+    end  
+  end
+
+  def edit
+    @image = set_image
+  end
+
+  def update
+    @image = set_image
+    @post = Post.find(@image.post_id)
+
+    respond_to do |format|
+      if @image.update(image_params)
+        format.html { redirect_to @post, notice: 'Image was successfully updated.' }
+        format.json { head :no_content }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'edit' }
         format.json { render json: @image.errors, status: :unprocessable_entity }
       end
-    end    
+    end
   end
 
   private
@@ -38,6 +38,8 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:file)
-    end
+     if params[:image].present?
+      params.require(:image).permit(:file, :post_id)
+     end
+   end
 end

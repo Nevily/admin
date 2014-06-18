@@ -2,6 +2,6 @@ class PagesController < ApplicationController
   before_action :authenticate_user!
   
   def index
-    @post = Post.paginate(page: params[:page])
+    @posts = Post.all
   end
 end

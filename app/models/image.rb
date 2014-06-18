@@ -7,8 +7,8 @@ class Image < ActiveRecord::Base
       "name" => read_attribute(:file),
       "size" => file.size,
       "url" => file.url,
-      "delete_url" => "/images/#{id}",
-      "delete_type" => "DELETE"
+      "delete_url" => "/image/{#id}",
+      "delete_type" => "DELETE" 
     }
   end
 end

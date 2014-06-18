@@ -1,4 +1,8 @@
 Admin::Application.routes.draw do
+  resources :categories
+
+  resources :testimonies
+
   devise_for :users
   resources :posts
   resources :images

@@ -1,0 +1,17 @@
+%h1 Listing testimonies
+
+%table
+  %tr
+    %th
+    %th
+    %th
+
+  - @testimonies.each do |testimony|
+    %tr
+      %td= link_to 'Show', testimony
+      %td= link_to 'Edit', edit_testimony_path(testimony)
+      %td= link_to 'Destroy', testimony, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Testimony', new_testimony_path
