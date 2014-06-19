@@ -1,4 +1,4 @@
-<%= form_for @post, :html => { :class => 'form-horizontal', :id => "fileupload"} do |f| %>
+<%= nested_form_for @post, :html => { :class => 'form-horizontal', :id => "fileupload"} do |f| %>
   <div class="control-group">
     <%= f.label :title, :class => 'control-label' %>
     <div class="controls">
@@ -6,18 +6,49 @@
     </div>
   </div>
   <div class="control-group">
-    <%= f.label :description, :class => 'control-label' %>
+    <%= f.label :venue, :class => 'control-label' %>
     <div class="controls">
-      <%= f.text_field :description, :class => 'text_field' %>
+      <%= f.text_field :venue, :class => 'text_field' %>
     </div>
   </div>
+  <% @categories = Category.all %>
+  <% if !@categories.blank? %>
+    <div class="control-group">
+      <%= f.label :category, :class => 'control-label' %>
+      <div class="controls">
+        <%= select("post", "category_id", @categories.collect {|c| [ c.title, c.id ] }) %>
+      </div>
+    </div>
+  <% end %>
+  <div class="control-group">
+    <%= f.label :video, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :video, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :description, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_area :description, :class => 'text_field' %>
+    </div>
+  </div> 
+
+  <%= f.fields_for :testimonies do |testimony| %>
+    <%= f.label :author, :class => 'control-label' %><br />
+    <%= testimony.text_field :author %><br />
+    <%= f.label :content, :class => 'control-label' %><br />
+    <%= testimony.text_area :content %><br />
+    <%= testimony.link_to_remove "Remove this testimony" %>
+  <% end %>
+  <p><%= f.link_to_add "Add a testimony", :testimonies %></p>
+    
   <div class="row">
     <div class=" fileupload-buttonbar">
       <div class="progressbar fileupload-progressbar nofade"><div style="width:0%;"></div></div>
       <span class="btn btn-mini fileinput-button">
         <i class="icon-plus"></i>
         <span><%= t('photos.add_files') %>...</span>
-        <%= f.fields_for @post_images do |p| %>
+        <%= f.fields_for :post_images do |p| %>
          <div class="field">
            <%= p.file_field :file, :multiple => true, name: "images[]"%>   
          </div>
@@ -26,8 +57,8 @@
     </div>
   </div>
 
-  <% if params[:controller] == "posts" && params[:action] == "edit" %> 
-    <% @post_images.each do |p| %>
+  <% if params[:controller] == "posts" && params[:action] == "edit" && !@images.blank? %> 
+    <% @images.each do |p| %>
       <%= image_tag p.file, :size => "150x150" %>
     <% end %>
   <% end %>
@@ -47,7 +78,8 @@
   <tr class="template-upload fade">
     <td class="preview"><span class="fade"></span></td>
     <td class="name"><span>{%=file.name%}</span></td>
-    <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>    
+    <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+  </tr>    
   {% } %}
 </script>
 <!-- The template to display files available for download -->

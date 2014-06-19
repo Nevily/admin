@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require jquery-fileupload
 //= require bootstrap
+//= require jquery_nested_form
 //= require_tree .

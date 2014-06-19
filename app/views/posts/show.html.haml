@@ -1,16 +1,19 @@
 %p
   %strong Title:
   = @post.title 
-
+  %br
+  %strong Category:
+  = @post.category.title.capitalize
+- @testimonies.each do |t| 
+  =t.author.capitalize
+  %br
 - @post_images.each do |i| 
-  =image_tag i.file_url, :size => "150x150" 
-  %br
-  =link_to "Edit", edit_image_path(i) 
-  | 
-  =link_to "Destroy", i, method: :delete 
-  %br
-  %br
-%br
+  .col-md-4
+    =image_tag i.file_url, :size => "200x200" 
+    %br
+    =link_to "Edit", edit_image_path(i) 
+    | 
+    =link_to "Destroy", i, method: :delete
 
 =link_to 'Edit', edit_post_path(@post) 
 |

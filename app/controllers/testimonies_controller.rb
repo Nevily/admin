@@ -1,6 +1,6 @@
 class TestimoniesController < ApplicationController
   before_action :set_testimony, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   # GET /testimonies
   # GET /testimonies.json
   def index

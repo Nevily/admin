@@ -1,4 +1,10 @@
 class ImagesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_image, only: [:edit, :update, :destroy]
+
+  def index
+    
+  end
 
   def destroy
     @image = set_image

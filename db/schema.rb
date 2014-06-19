@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140618101119) do
+ActiveRecord::Schema.define(version: 20140619071719) do
 
   create_table "categories", force: true do |t|
     t.string   "title"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20140618101119) do
     t.integer  "user_id"
     t.integer  "category_id"
     t.string   "token"
+    t.string   "video"
   end
 
   create_table "simple_captcha_data", force: true do |t|
@@ -53,7 +54,7 @@ ActiveRecord::Schema.define(version: 20140618101119) do
   add_index "simple_captcha_data", ["key"], name: "idx_key"
 
   create_table "testimonies", force: true do |t|
-    t.string   "autor"
+    t.string   "author"
     t.text     "content"
     t.integer  "post_id"
     t.datetime "created_at"

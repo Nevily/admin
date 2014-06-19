@@ -1,18 +1,19 @@
 class PostsController < ApplicationController
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
   def show
     @post = set_post
     @post_images = @post.images.all
+    @testimonies = @post.testimonies.all
   end
 
   def new
      @post = Post.new
-     @post_images = @post.images.build
   end
   
   def create
-     @post = Post.new(post_params)
+     @post = current_user.posts.build(post_params)
 
      respond_to do |format|
        if @post.save
@@ -30,7 +31,7 @@ class PostsController < ApplicationController
 
   def edit
     @post = set_post
-    @post_images = @post.images.all
+    @images = @post.images.all
   end
 
   def update
@@ -44,6 +45,8 @@ class PostsController < ApplicationController
         end
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { head :ok }
+      else
+        format.html { render action: 'edit' }
       end
     end
   end
@@ -57,15 +60,7 @@ class PostsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  def videos
-    @videos = Post.where.not(video: nil)
-  end
-
-  def show_video
-
-  end
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
@@ -74,6 +69,6 @@ class PostsController < ApplicationController
 
     # Only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :description, :venue, :category_id, images_attributes: [:id, :post_id, :file])
+      params.require(:post).permit(:title, :description, :venue, :category_id, images_attributes: [:id, :post_id, :file], testimonies_attributes: [:id, :author, :content])
     end
 end

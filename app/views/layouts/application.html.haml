@@ -24,7 +24,7 @@
                 %li{ :class => ('active' if current_page?(pages_index_path)) }
                   = link_to 'Home', pages_index_path                
                 %li{ :class => ('active' if controller?("images")) }
-                  = link_to 'Albums', new_image_path
+                  = link_to 'Images', new_image_path
                 %li{ :class => ('active' if controller?("videos")) }
                   = link_to 'Videos', new_video_path
                 %li{ :class => ('active' if controller?("categories")) }
@@ -46,5 +46,4 @@
         - if alert.present?
           %br
           %p.col-md-4.alert.alert-danger= alert
-
         .col-md-12= yield

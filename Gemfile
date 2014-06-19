@@ -55,6 +55,9 @@ gem 'carrierwave'
 gem 'rmagick'
 gem 'jquery-fileupload-rails'
 
+# Post Create
+gem "nested_form"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
