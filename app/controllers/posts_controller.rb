@@ -69,6 +69,6 @@ class PostsController < ApplicationController
 
     # Only allow the white list through.
     def post_params
-      params.require(:post).permit(:title, :description, :venue, :category_id, images_attributes: [:id, :post_id, :file], testimonies_attributes: [:id, :author, :content])
+      params.require(:post).permit(:title, :description, :video, :venue, :category_id, images_attributes: [:id, :post_id, :file], testimonies_attributes: [:id, :author, :content])
     end
 end

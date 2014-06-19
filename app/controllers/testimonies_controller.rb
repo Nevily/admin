@@ -54,9 +54,10 @@ class TestimoniesController < ApplicationController
   # DELETE /testimonies/1
   # DELETE /testimonies/1.json
   def destroy
+    @post = @testimony.post 
     @testimony.destroy
     respond_to do |format|
-      format.html { redirect_to testimonies_url }
+      format.html { redirect_to @post, notice: 'Testimony was successfully deleted.' }
       format.json { head :no_content }
     end
   end

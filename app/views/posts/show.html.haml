@@ -2,10 +2,12 @@
   %strong Title:
   = @post.title 
   %br
-  %strong Category:
-  = @post.category.title.capitalize
+  - if @post.category
+    %strong Category:
+    = @post.category.title.capitalize
 - @testimonies.each do |t| 
   =t.author.capitalize
+  =link_to "Destroy", t, method: :delete
   %br
 - @post_images.each do |i| 
   .col-md-4

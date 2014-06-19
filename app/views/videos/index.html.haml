@@ -1,0 +1,8 @@
+- if @posts
+  - @posts.each do |p|
+    = link_to p.title, video_path(p)
+    %br
+    %iframe{src: "#{p.video}", width: "400", height: "300", frameborder: 0, webkitAllowFullScreen: "mozallowfullscreen allowFullScreen"}
+    
+    %br
+    = will_paginate @posts

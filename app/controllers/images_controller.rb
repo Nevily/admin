@@ -3,7 +3,7 @@ class ImagesController < ApplicationController
   before_action :set_image, only: [:edit, :update, :destroy]
 
   def index
-    
+    @posts = Post.get_images.paginate(:page => params[:page], :per_page => 10)
   end
 
   def destroy

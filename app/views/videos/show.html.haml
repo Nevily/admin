@@ -1,0 +1,4 @@
+- if @post
+  = @post.title
+  %br
+  %iframe{src: "#{@post.video}", width: "800", height: "450", frameborder: 0, webkitAllowFullScreen: "mozallowfullscreen allowFullScreen"}   

@@ -7,10 +7,11 @@ Admin::Application.routes.draw do
   resources :posts
   resources :images
   resources :videos
+  
   get "pages/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
+  
   # You can have the root of your site routed with "root"
   devise_scope :user do
     # If the user is signed in
