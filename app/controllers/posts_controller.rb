@@ -13,20 +13,21 @@ class PostsController < ApplicationController
   end
   
   def create
-     @post = current_user.posts.build(post_params)
+    @post = current_user.posts.build(post_params)
 
-     respond_to do |format|
-       if @post.save
+    begin
+      Post.transaction do
+        @post.save!
         if params[:images]
-         params[:images].each do |i|
-            @post_image = @post.images.create!(file: i, post_id: @post.id)
-         end
+          params[:images].each do |image_file|
+            @post_image = @post.images.create!(file: image_file, post_id: @post.id)
+          end
         end
-         format.html { redirect_to @post, notice: 'Post was successfully created.' }
-       else
-         format.html { render action: 'new' }
-       end
-     end
+      end
+      redirect_to @post, notice: 'Post was successfully created.'
+    rescue ActiveRecord::RecordInvalid
+      render action: 'new', status: :unprocessable_entity
+    end
   end
 
   def edit
