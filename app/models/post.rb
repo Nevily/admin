@@ -12,7 +12,7 @@ class Post < ActiveRecord::Base
   validates :venue, presence: true
   validates :description, presence: true
 
-  scope :get_videos, -> { where.not( video: nil || "") }
+  scope :get_videos, -> { where.not( video: [nil, ""]) }
   scope :get_images, -> { joins(:images).group('post_id') }
 
   def self.search(search)
