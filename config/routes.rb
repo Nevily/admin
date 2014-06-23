@@ -4,7 +4,7 @@ Admin::Application.routes.draw do
   resources :testimonies
 
   devise_for :users
-  resources :posts
+  resources :posts, except: [:index]
   resources :images
   resources :videos
   
