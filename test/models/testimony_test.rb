@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class TestimonyTest < ActiveSupport::TestCase
-
-
   test "testimony attributes must not be empty" do
     testimony = Testimony.new
 		assert testimony.invalid?

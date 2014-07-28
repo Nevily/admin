@@ -5,7 +5,11 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
+  username: user1
   email: test1@test.com
+  gender: male
 
 two:
-  email: test2@test.com
+  username: user2
+  email: test2@test.com  
+  gender: female

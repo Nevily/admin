@@ -1,6 +1,7 @@
 class TestimoniesController < ApplicationController
-  before_action :set_testimony, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_action :set_testimony, only: [:show, :edit, :update, :destroy]
+  
   # GET /testimonies
   # GET /testimonies.json
   def index
@@ -70,6 +71,6 @@ class TestimoniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def testimony_params
-      params[:testimony]
+      params.require(:testimony).permit(:author, :content)
     end
 end

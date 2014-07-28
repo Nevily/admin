@@ -1,45 +1,54 @@
 require 'test_helper'
 
 class CategoriesControllerTest < ActionController::TestCase
+
+  include Devise::TestHelpers
+
   setup do
     @category = categories(:one)
   end
 
-  test "should get index" do
+  test "get index" do
+    sign_in User.first
     get :index
     assert_response :success
     assert_not_nil assigns(:categories)
   end
 
-  test "should get new" do
+  test "get new" do
+    sign_in User.first
     get :new
     assert_response :success
   end
 
-  test "should create category" do
+  test "create category" do
+    sign_in User.first
     assert_difference('Category.count') do
-      post :create, category: {  }
+      post :create, category: { title: "category" }
     end
-
     assert_redirected_to category_path(assigns(:category))
   end
 
-  test "should show category" do
+  test "show category" do
+    sign_in User.first
     get :show, id: @category
     assert_response :success
   end
 
-  test "should get edit" do
+  test "get edit" do
+    sign_in User.first
     get :edit, id: @category
     assert_response :success
   end
 
-  test "should update category" do
-    patch :update, id: @category, category: {  }
+  test "update category" do
+    sign_in User.first
+    patch :update, id: @category, category: { title: "category" }
     assert_redirected_to category_path(assigns(:category))
   end
 
-  test "should destroy category" do
+  test "destroy category" do
+    sign_in User.first
     assert_difference('Category.count', -1) do
       delete :destroy, id: @category
     end

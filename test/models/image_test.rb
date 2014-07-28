@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class ImageTest < ActiveSupport::TestCase
-
   test "image file attribute must not be empty" do
     image = Image.new
 		assert image.invalid?

@@ -17,7 +17,7 @@ class Post < ActiveRecord::Base
     if search
       where("title like ?", search)
     else
-      scoped
+      Post.all
     end
   end
 end

@@ -3,7 +3,7 @@ class ImagesController < ApplicationController
   before_action :set_image, only: [:edit, :update, :destroy]
 
   def index
-    @posts = Post.get_images.paginate(:page => params[:page], :per_page => 10)
+    @posts = Post.get_images.paginate(page: params[:page], per_page: 10)
   end
 
   def destroy
@@ -23,16 +23,12 @@ class ImagesController < ApplicationController
 
   def update
     @image = set_image
-    @post = Post.find(@image.post_id)
-
-    respond_to do |format|
-      if @image.update(image_params)
-        format.html { redirect_to @post, notice: 'Image was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
-      end
+    @post = Post.find(@image.post_id)  
+      
+    if @image.update(image_params)
+      redirect_to @post, notice: 'Image was successfully updated.' 
+    else
+      render action: 'edit' 
     end
   end
 

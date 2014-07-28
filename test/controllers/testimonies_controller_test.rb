@@ -1,49 +1,58 @@
 require 'test_helper'
 
 class TestimoniesControllerTest < ActionController::TestCase
+
+  include Devise::TestHelpers
+
   setup do
     @testimony = testimonies(:one)
   end
 
-  test "should get index" do
+  test "get index" do
+    sign_in User.first
     get :index
     assert_response :success
     assert_not_nil assigns(:testimonies)
   end
 
-  test "should get new" do
+  test "get new" do
+    sign_in User.first
     get :new
     assert_response :success
   end
 
-  test "should create testimony" do
+  test "create testimony" do
+    sign_in User.first
     assert_difference('Testimony.count') do
-      post :create, testimony: {  }
+      post :create, testimony: { author: "author", content: "test"}
     end
-
     assert_redirected_to testimony_path(assigns(:testimony))
   end
 
-  test "should show testimony" do
+  test "show testimony" do
+    sign_in User.first
     get :show, id: @testimony
     assert_response :success
   end
 
-  test "should get edit" do
+  test "get edit" do
+    sign_in User.first
     get :edit, id: @testimony
     assert_response :success
   end
 
-  test "should update testimony" do
-    patch :update, id: @testimony, testimony: {  }
+  test "update testimony" do
+    sign_in User.first
+    patch :update, id: @testimony, testimony: { author: "author" }
     assert_redirected_to testimony_path(assigns(:testimony))
   end
 
-  test "should destroy testimony" do
+  test "destroy testimony" do
+    sign_in User.first
     assert_difference('Testimony.count', -1) do
-      delete :destroy, id: @testimony
+      @post = @testimony.post
+      delete :destroy, id: @testimony          
     end
-
-    assert_redirected_to testimonies_path
+    assert_redirected_to @post
   end
 end
