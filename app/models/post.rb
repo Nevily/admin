@@ -8,9 +8,7 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :images
   accepts_nested_attributes_for :testimonies
 
-  validates :title, presence: true
-  validates :venue, presence: true
-  validates :description, presence: true
+  validates :title, :venue, :description, presence: true
 
   scope :get_videos, -> { where.not( video: [nil, ""]) }
   scope :get_images, -> { joins(:images).group('post_id') }

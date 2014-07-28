@@ -10,13 +10,9 @@ class User < ActiveRecord::Base
   has_many :posts
 
   # New attributes' validations
-  validates :username,
-  :uniqueness => {
-    :case_sensitive => false
-  }
-
-  validates :gender, inclusion: { in: %w(male female),
-    message: "%{value} is not a valid gender" }
+  validates :username, :gender, presence: true
+  validates :username, uniqueness: { case_sensitive: false }
+  validates :gender, inclusion: { in: %w(male female), message: "%{value} is not a valid gender" }
 
   # Allows to use the 'login' variable some where else in the code 
   def login=(login)
