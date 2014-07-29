@@ -10,11 +10,7 @@ class ImagesController < ApplicationController
     @image = set_image
     @post = Post.find(@image.post_id)
     @image.destroy
-
-    respond_to do |format|
-      format.html { redirect_to @post, notice: 'Image has been deleted.' }
-      format.js
-    end  
+    redirect_to @post, notice: 'Image has been deleted.'
   end
 
   def edit

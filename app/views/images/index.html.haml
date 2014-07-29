@@ -1,7 +1,7 @@
 - if @posts
-  - @posts.each do |p|
-    = link_to p.title, p
+  - @posts.each do |post|
+    = link_to post.title, posto
     %br
-    = image_tag p.images.first.file_url, :size => "200x200"
+    = image_tag pst.images.first.file_url, :size => "200x200"
     %br
     = will_paginate @posts

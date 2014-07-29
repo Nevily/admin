@@ -26,29 +26,21 @@ class CategoriesController < ApplicationController
   # POST /categories.json
   def create
     @category = Category.new(category_params)
-
-    respond_to do |format|
-      if @category.save
-        format.html { redirect_to @category, notice: 'Category was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @category }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
-      end
+    
+    if @category.save
+      redirect_to @category, notice: 'Category was successfully created.'
+    else
+      render action: 'new'
     end
   end
 
   # PATCH/PUT /categories/1
   # PATCH/PUT /categories/1.json
   def update
-    respond_to do |format|
-      if @category.update(category_params)
-        format.html { redirect_to @category, notice: 'Category was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
-      end
+    if @category.update(category_params)
+      redirect_to @category, notice: 'Category was successfully updated.'
+    else
+      render action: 'edit' 
     end
   end
 
@@ -56,10 +48,7 @@ class CategoriesController < ApplicationController
   # DELETE /categories/1.json
   def destroy
     @category.destroy
-    respond_to do |format|
-      format.html { redirect_to categories_url }
-      format.json { head :no_content }
-    end
+    redirect_to categories_url 
   end
 
   private

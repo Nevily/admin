@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
   def show
     @post = set_post
-    @post_images = @post.images
+    @images = @post.images
     @testimonies = @post.testimonies
   end
 
@@ -20,7 +20,7 @@ class PostsController < ApplicationController
         @post.save!
         if params[:images]
           params[:images].each do |image_file|
-            @post_image = @post.images.create!(file: image_file, post_id: @post.id)
+            @image = @post.images.create!(file: image_file, post_id: @post.id)
           end
         end
       end
@@ -36,19 +36,16 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = set_post
-    respond_to do |format|
-      if @post.update_attributes(post_params)
-        if params[:images]
-          params[:images].each do |i|
-            @post_image = @post.images.create!(file: i, :post_id => @post.id)           
-          end
+    @post = set_post    
+    if @post.update_attributes(post_params)
+      if params[:images]
+        params[:images].each do |image|
+          @image = @post.images.create!(file: image, :post_id => @post.id)           
         end
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render action: 'edit' }
       end
+      redirect_to @post, notice: 'Post was successfully updated.'
+    else
+      render action: 'edit'
     end
   end
 
@@ -56,10 +53,7 @@ class PostsController < ApplicationController
     @post = set_post
     @post.destroy
 
-    respond_to do |format|
-      format.html { redirect_to pages_index_path, notice: 'Post was successfully deleted.' }
-      format.json { head :no_content }
-    end
+    redirect_to pages_index_path, notice: 'Post was successfully deleted.'
   end
   
   private

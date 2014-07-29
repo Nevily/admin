@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :category
+  belongs_to :user, inverse_of: :posts
+  belongs_to :category, inverse_of: :posts
 
   has_many :testimonies, dependent: :destroy
   has_many :images, dependent: :destroy

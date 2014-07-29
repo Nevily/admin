@@ -1,0 +1,77 @@
+= nested_form_for @post, :html => { :class => 'form-horizontal', :id => "fileupload"} do |f| 
+  .control-group
+    = f.label :title, class: 'control-label'
+    .controls
+      = f.text_field :title, class: 'text_field' 
+  .control-group
+    = f.label :venue, class: 'control-label' 
+    .controls
+      = f.text_field :venue, class: 'text_field'
+
+  - @categories = Category.all 
+  
+  - if !@categories.blank? 
+    .control-group
+      = f.label :category, class: 'control-label' 
+      .controls
+        = select("post", "category_id", @categories.collect {|c| [ c.title, c.id ] }) 
+  .control-group
+    = f.label :video, class: 'control-label'
+    .controls
+      = f.text_field :video, class: 'text_field'
+  .control-group
+    = f.label :description, class: 'control-label'
+    .controls
+      = f.text_area :description, class:'text_field'
+
+  = f.fields_for :testimonies do |testimony| 
+    = f.label :author, class: 'control-label' 
+    %br
+    = testimony.text_field :author 
+    %br
+    = f.label :content, class: 'control-label' 
+    %br
+    = testimony.text_area :content 
+    %br
+    = testimony.link_to_remove "Remove this testimony" 
+
+  %p
+    = f.link_to_add "Add a testimony", :testimonies
+    
+  #images.row
+    .fileupload-buttonbar
+      .progressbar.fileupload-progressbar.nofade
+        %div{style: "width:0%;"}
+      %span{class: "btn btn-mini fileinput-button"}
+        %i{class: "icon-plus"}
+        %span= t('photos.add_files') 
+        = f.fields_for :post_images do |p| 
+          .field
+            = p.file_field :file, multiple: true, name: "images[]" 
+
+  - if params[:controller] == "posts" && params[:action] == "edit" && !@images.blank?  
+    - @images.each do |image| 
+      = image_tag image.file, size: "150x150"
+   
+  %table{ role: "presentation", class: "table table-striped" }
+    %tbody{class: "files"}
+
+  .form-actions
+    = f.submit nil, class: 'btn btn-mini btn-primary', id: "upload" 
+    = link_to t('.cancel', default: t("helpers.links.cancel")), pages_index_path, class: 'btn btn-mini'
+
+:plain
+  <!-- The template to display files available for upload -->
+  <script id="template-upload" type="text/x-tmpl">
+    {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+      <td class="preview"><span class="fade"></span></td>
+      <td class="name"><span>{%=file.name%}</span></td>
+      <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+    </tr>    
+    {% } %}
+  </script>
+
+  <!-- The template to display files available for download -->
+  <script id="template-download" type="text/x-tmpl">  
+  </script>

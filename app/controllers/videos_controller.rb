@@ -3,7 +3,7 @@ class VideosController < ApplicationController
   before_action :set_post, only: [:show]
   
   def index
-    @posts = Post.get_videos.paginate(:page => params[:page], :per_page => 10)
+    @posts = Post.get_videos.paginate(page: params[:page], per_page: 10)
   end
 
   def show

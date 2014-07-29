@@ -5,17 +5,17 @@
   - if @post.category
     %strong Category:
     = @post.category.title.capitalize
-- @testimonies.each do |t| 
-  =t.author.capitalize
-  =link_to "Destroy", t, method: :delete
+- @testimonies.each do |testimony| 
+  =testimony.author.capitalize
+  =link_to "Destroy", testimony, method: :delete
   %br
-- @post_images.each do |i| 
+- @images.each do |images| 
   .col-md-4
-    =image_tag i.file_url, :size => "200x200" 
+    =image_tag images.file_url, :size => "200x200" 
     %br
-    =link_to "Edit", edit_image_path(i) 
+    =link_to "Edit", edit_image_path(images) 
     | 
-    =link_to "Destroy", i, method: :delete
+    =link_to "Destroy", images, method: :delete
 
 =link_to 'Edit', edit_post_path(@post) 
 |

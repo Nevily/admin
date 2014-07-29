@@ -26,29 +26,20 @@ class TestimoniesController < ApplicationController
   # POST /testimonies.json
   def create
     @testimony = Testimony.new(testimony_params)
-
-    respond_to do |format|
-      if @testimony.save
-        format.html { redirect_to @testimony, notice: 'Testimony was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @testimony }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @testimony.errors, status: :unprocessable_entity }
-      end
+    if @testimony.save
+      redirect_to @testimony, notice: 'Testimony was successfully created.'
+    else
+      render action: 'new' 
     end
   end
 
   # PATCH/PUT /testimonies/1
   # PATCH/PUT /testimonies/1.json
   def update
-    respond_to do |format|
-      if @testimony.update(testimony_params)
-        format.html { redirect_to @testimony, notice: 'Testimony was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @testimony.errors, status: :unprocessable_entity }
-      end
+    if @testimony.update(testimony_params)
+      redirect_to @testimony, notice: 'Testimony was successfully updated.'
+    else
+      render action: 'edit'
     end
   end
 
@@ -57,10 +48,7 @@ class TestimoniesController < ApplicationController
   def destroy
     @post = @testimony.post 
     @testimony.destroy
-    respond_to do |format|
-      format.html { redirect_to @post, notice: 'Testimony was successfully deleted.' }
-      format.json { head :no_content }
-    end
+    redirect_to @post, notice: 'Testimony was successfully deleted.' 
   end
 
   private
