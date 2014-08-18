@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_image, only: [:edit, :update, :destroy]
+  before_filter :authenticate_user!
+  before_filter :set_image, only: [:edit, :update, :destroy]
 
   def index
     @posts = Post.get_images.paginate(page: params[:page], per_page: 10)

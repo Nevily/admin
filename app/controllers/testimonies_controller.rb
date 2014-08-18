@@ -1,6 +1,6 @@
 class TestimoniesController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_testimony, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
+  before_filter :set_testimony, only: [:show, :edit, :update, :destroy]
   
   # GET /testimonies
   # GET /testimonies.json
