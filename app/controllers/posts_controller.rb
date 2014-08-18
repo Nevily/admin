@@ -1,9 +1,8 @@
 class PostsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :set_post, only: [:show, :edit, :update, :destroy]  
+  before_action :authenticate_user!
+  before_action :find_post, only: [:show, :edit, :update, :destroy]  
 
   def show
-    @post = set_post
     @images = @post.images
     @testimonies = @post.testimonies
   end
@@ -31,12 +30,10 @@ class PostsController < ApplicationController
   end
 
   def edit
-    @post = set_post
     @images = @post.images
   end
 
-  def update
-    @post = set_post    
+  def update   
     if @post.update_attributes(post_params)
       if params[:images]
         params[:images].each do |image|
@@ -50,15 +47,13 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    @post = set_post
     @post.destroy
-
     redirect_to pages_index_path, notice: 'Post was successfully deleted.'
   end
   
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_post
+    def find_post
       @post = Post.find(params[:id])
     end
 

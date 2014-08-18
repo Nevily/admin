@@ -10,8 +10,8 @@ class Post < ActiveRecord::Base
 
   validates :title, :venue, :description, presence: true
 
-  scope :get_videos, -> { where.not( video: [nil, ""]) }
-  scope :get_images, -> { joins(:images).group('post_id') }
+  scope :videos, -> { where.not( video: [nil, ""]) }
+  scope :images, -> { joins(:images).group('post_id') }
 
   def self.search(search)
     if search

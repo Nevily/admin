@@ -1,25 +1,22 @@
 class ImagesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :set_image, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :find_image, only: [:edit, :update, :destroy]
 
   def index
-    @posts = Post.get_images.paginate(page: params[:page], per_page: 10)
+    @posts = Post.images.paginate(page: params[:page], per_page: 10)
   end
 
   def destroy
-    @image = set_image
-    @post = Post.find(@image.post_id)
+    @post = @image.post
     @image.destroy
     redirect_to @post, notice: 'Image has been deleted.'
   end
 
   def edit
-    @image = set_image
   end
 
   def update
-    @image = set_image
-    @post = Post.find(@image.post_id)  
+    @post = @image.post
       
     if @image.update(image_params)
       redirect_to @post, notice: 'Image was successfully updated.' 
@@ -30,7 +27,7 @@ class ImagesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_image
+    def find_image
       @image = Image.find(params[:id])
     end
 

@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :find_category, only: [:show, :edit, :update, :destroy]
    
   # GET /categories
   # GET /categories.json
@@ -53,7 +53,7 @@ class CategoriesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_category
+    def find_category
       @category = Category.find(params[:id])
     end
 

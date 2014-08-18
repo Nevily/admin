@@ -1,6 +1,6 @@
 class TestimoniesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :set_testimony, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :find_testimony, only: [:show, :edit, :update, :destroy]
   
   # GET /testimonies
   # GET /testimonies.json
@@ -53,7 +53,7 @@ class TestimoniesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_testimony
+    def find_testimony
       @testimony = Testimony.find(params[:id])
     end
 
