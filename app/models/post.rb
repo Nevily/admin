@@ -2,8 +2,8 @@ class Post < ActiveRecord::Base
   belongs_to :user, inverse_of: :posts
   belongs_to :category, inverse_of: :posts
 
-  has_many :testimonies, dependent: :destroy
-  has_many :images, dependent: :destroy
+  has_many :testimonies, inverse_of: :post, dependent: :destroy
+  has_many :images, inverse_of: :post, dependent: :destroy
 
   accepts_nested_attributes_for :images
   accepts_nested_attributes_for :testimonies

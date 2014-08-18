@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
     devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :registerable 
   end
 
-  has_many :posts
+  has_many :posts, inverse_of: :user
 
   # New attributes' validations
   validates :username, :gender, presence: true
